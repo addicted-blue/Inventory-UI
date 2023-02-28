@@ -1,0 +1,72 @@
+<div class="container my-3 w-25 p-3">
+  <h1>{{isEditMode ? 'Edit ' : 'Add new '}} Product</h1>
+  <form [formGroup]="productForm" (ngSubmit)="validateForm()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" aria-describedby="nameHelp" formControlName="name">
+
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="form-text">
+        <div *ngIf="name?.errors?.['required']" class="txt-danger ">
+          *Product Name is required.
+        </div>
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="description" class="form-control" id="description" formControlName="description">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Select Category</label>
+      <select class="form-select" aria-label="Default select example" formControlName="category">
+        <option value='' disabled selected>Select</option>
+        <option *ngFor="let cat of categoryKeys" [value]="cat">
+          {{Category[convertToNumber(cat)]}}
+        </option>
+      </select>
+
+      <div *ngIf="category?.invalid && (category?.dirty || category?.touched)" class="form-text">
+        <div *ngIf="category?.errors?.['required']" class="txt-danger ">
+          *Please select one category.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="text" class="form-control" id="price" formControlName="price">
+    </div>
+    <div class="mb-3">
+      <div class="form-check-inline">
+        <label for="unit" class="form-label">Unit</label>
+        <input type="number" class="form-control" id="unit" formControlName="unit">
+      </div>
+      <div class="form-check-inline">
+        <select class="form-select" aria-label="Default select example" formControlName="unitType">
+          <option value='' disabled selected>Select</option>
+          <option *ngFor="let unit of unitTypeKeys" [value]="unit">
+            {{UnitType[convertToNumber(unit)]}}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="unitType?.invalid && (unitType?.dirty || unitType?.touched)" class="form-text">
+        <div *ngIf="unitType?.errors?.['required']" class="txt-danger ">
+          *Please select unit type.
+        </div>
+      </div>
+
+      <div *ngIf="unit?.invalid && (unit?.dirty || unit?.touched)" class="form-text">
+        <div *ngIf="unit?.errors?.['required']" class="txt-danger ">
+          *Please enter units.
+        </div>
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Upload Image</label>
+      <input class="form-control" type="file" id="imageUrl" formControlName="imageUrl"
+        (change)="onImageChangeFromFile($event)">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Submit</button>
+  </form>
+</div>

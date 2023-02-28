@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.cdk-overlay-container{
+    position: fixed;
+    top: 10%;
+    left: 40%;
+}

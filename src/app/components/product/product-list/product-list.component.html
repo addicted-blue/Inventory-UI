@@ -1,0 +1,36 @@
+
+<a class="nav-link" routerLink="/product/add">
+    
+<button class="button-80 mt-2" role="button">Add new Product</button>
+</a>
+<div class="container">
+    <h1 class="mb-4 mt-2">Products</h1>
+    <!-- HTML !-->
+    <p *ngIf="!products || products.length < 1">No product added!</p>
+    <table class="table" *ngIf="products && products.length > 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Catogory</th>
+                <th>Price</th>
+                <th>Unit</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>
+                    <a class="nav-link" [routerLink]="['/product', 'edit', product.id]">
+                        {{product.name}}
+                    </a>
+                </td>
+                <td>{{product.description}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.unit}} {{product.unitType}}</td>
+                <td><i class="gg-remove" (click)="removeProduct(product)" title="Delete Product"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
